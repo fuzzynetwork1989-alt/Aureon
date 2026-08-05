@@ -1,0 +1,11 @@
+{
+  "name": "@aureon/api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "node src/main.ts",
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  }
+}
