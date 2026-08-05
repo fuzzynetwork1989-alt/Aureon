@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@aureon/core": ["packages/core/src"],
+      "@aureon/ui": ["packages/ui/src"],
+      "@aureon/memory": ["packages/memory/src"],
+      "@aureon/policy": ["packages/policy/src"],
+      "@aureon/shared": ["packages/shared/src"],
+      "@aureon/config": ["packages/config/src"],
+      "@aureon/schemas": ["packages/schemas/src"]
+    }
+  }
+}
