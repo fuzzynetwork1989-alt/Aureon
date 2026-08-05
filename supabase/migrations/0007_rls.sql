@@ -1,0 +1,27 @@
+alter table public.users enable row level security;
+alter table public.devices enable row level security;
+alter table public.sessions enable row level security;
+alter table public.workspaces enable row level security;
+alter table public.preferences enable row level security;
+alter table public.memories enable row level security;
+alter table public.memory_embeddings enable row level security;
+alter table public.intent_threads enable row level security;
+alter table public.cognition_cells enable row level security;
+alter table public.tasks enable row level security;
+alter table public.task_events enable row level security;
+alter table public.approvals enable row level security;
+alter table public.audit_events enable row level security;
+alter table public.notifications enable row level security;
+alter table public.checkpoints enable row level security;
+
+create policy "users own profile" on public.users for all using (auth.uid() = id) with check (auth.uid() = id);
+create policy "devices by owner" on public.devices for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "sessions by owner" on public.sessions for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "workspaces by owner" on public.workspaces for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "preferences by owner" on public.preferences for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "memories by owner" on public.memories for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "intent threads by owner" on public.intent_threads for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "tasks through threads" on public.tasks for all using (exists (select 1 from public.intent_threads t where t.id = thread_id and t.user_id = auth.uid())) with check (exists (select 1 from public.intent_threads t where t.id = thread_id and t.user_id = auth.uid()));
+create policy "approvals by owner" on public.approvals for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "notifications by owner" on public.notifications for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "checkpoints through session" on public.checkpoints for all using (exists (select 1 from public.sessions s where s.id = session_id and s.user_id = auth.uid())) with check (exists (select 1 from public.sessions s where s.id = session_id and s.user_id = auth.uid()));
